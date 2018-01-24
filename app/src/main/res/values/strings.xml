@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">Assignment Three - UI</string>
+    <string name="relative_layout_button">View Relative Layout</string>
+    <string name="title_activity_with_relative_layout2">Relative Layout</string>
+    <string name="reminder">Reminder goes here...</string>
+    <string name="toast">Toast</string>
+    <string name="reverseToast">Reverse Toast</string>
+    <string name="linear_layout_button">View Linear Layout</string>
+    <string name="title_activity_with_linear_layout">Linear Layout</string>
+    <string name="to">To:</string>
+    <string name="subject">Subject</string>
+    <string name="send">Send</string>
+    <string name="message">Message</string>
+    <string name="web_layout_button">View WebView Layout</string>
+    <string name="title_activity_with_web_layout">WebView Layout</string>
+    <string name="loadStaticHTML">Static HTML</string>
+    <string name="loadWEButton">WinnipegElection.ca</string>
+</resources>
