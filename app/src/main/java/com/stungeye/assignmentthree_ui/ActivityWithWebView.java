@@ -1,6 +1,8 @@
 package com.stungeye.assignmentthree_ui;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -11,6 +13,8 @@ import android.webkit.WebViewClient;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.Toast;
+
+import static android.content.DialogInterface.BUTTON_POSITIVE;
 
 public class ActivityWithWebView extends AppCompatActivity {
 
@@ -78,8 +82,16 @@ public class ActivityWithWebView extends AppCompatActivity {
 
         /** Show a toast from the web page */
         @JavascriptInterface
-        public void showToast(String toast) {
-            Toast.makeText(mContext, toast, Toast.LENGTH_SHORT).show();
+        public void showAlert(String title, String msg) {
+            AlertDialog alertDialog = new AlertDialog.Builder(ActivityWithWebView.this).create();
+            alertDialog.setTitle(title);
+            alertDialog.setMessage(msg);
+            alertDialog.setButton( BUTTON_POSITIVE,"OK", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    return;
+                }
+            });
+            alertDialog.show();
         }
     }
 
