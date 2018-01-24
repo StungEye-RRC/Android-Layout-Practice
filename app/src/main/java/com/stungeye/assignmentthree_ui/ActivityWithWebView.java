@@ -56,10 +56,7 @@ public class ActivityWithWebView extends AppCompatActivity {
     private class MyWebViewClient extends WebViewClient {
         @Override
         public boolean shouldOverrideUrlLoading(WebView view, String url) {
-            // No need to do this, just return false to allow WebView to handle links.
-            //view.loadUrl(url);
-            //return true;
-
+            // Ensures that we also handle URL loading within the webview and not within the system browser.
             return false;
         }
     }

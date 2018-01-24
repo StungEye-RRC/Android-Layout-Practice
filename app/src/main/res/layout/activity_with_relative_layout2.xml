@@ -35,4 +35,12 @@
         android:layout_marginTop="92dp"
         android:text="@string/reverseToast" />
 
+    <Spinner
+        android:id="@+id/spinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/toastButton"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="102dp" />
+
 </RelativeLayout>
