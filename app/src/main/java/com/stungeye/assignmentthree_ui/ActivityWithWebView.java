@@ -1,13 +1,16 @@
 package com.stungeye.assignmentthree_ui;
 
+import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.webkit.JavascriptInterface;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 public class ActivityWithWebView extends AppCompatActivity {
 
@@ -21,14 +24,17 @@ public class ActivityWithWebView extends AppCompatActivity {
 
         setContentView(R.layout.activity_with_web_view);
         webView = findViewById(R.id.webview);
+        webView.getSettings().setJavaScriptEnabled(true);
         webView.setWebViewClient(new MyWebViewClient());
+        webView.addJavascriptInterface(new WebAppInterface(this), "Android");
+
 
         // Tried to find the buttons when they were inside of a nested layout but couldn't.
-        /*
+
         LinearLayout ll = findViewById(R.id.webviewButtons);
         showStaticHTMLButton = ll.findViewById(R.id.staticHTMLButton);
         showWEButton = ll.findViewById(R.id.loadWEButton);
-        */
+
 
         showStaticHTMLButton = findViewById(R.id.staticHTMLButton);
         showWEButton = findViewById(R.id.loadWEButton);
@@ -36,8 +42,17 @@ public class ActivityWithWebView extends AppCompatActivity {
         showStaticHTMLButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String summary = "<html><body><p>This <b>really</b> is static HTML.</p><img src='http://stungeye.com/images/eye.jpg'></body></html>";
-                webView.loadData(summary, "text/html", "UTF-8");
+                // Now loading through resource file.
+                /*
+                String summary = "<html><body><p>This <b>really</b> is static HTML.</p><img src='http://stungeye.com/images/eye.jpg'><input type=\"button\" value=\"Say hello\" onClick=\"showAndroidToast('Hello Android!')\" />\n" +
+                        "\n" +
+                        "<script type=\"text/javascript\">\n" +
+                        "    function showAndroidToast(toast) {\n" +
+                        "        Android.showToast(toast);\n" +
+                        "    }\n" +
+                        "</script></body></html>";
+                webView.loadData(summary, "text/html", "UTF-8");*/
+                webView.loadUrl("file:///android_asset/index.html");
             }
         });
 
@@ -45,12 +60,27 @@ public class ActivityWithWebView extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 String url = "http://www.winnipegelection.ca";
-                webView.getSettings().setJavaScriptEnabled(true);
+
                 webView.loadUrl(url);
             }
         });
 
 
+    }
+
+    public class WebAppInterface {
+        Context mContext;
+
+        /** Instantiate the interface and set the context */
+        WebAppInterface(Context c) {
+            mContext = c;
+        }
+
+        /** Show a toast from the web page */
+        @JavascriptInterface
+        public void showToast(String toast) {
+            Toast.makeText(mContext, toast, Toast.LENGTH_SHORT).show();
+        }
     }
 
     private class MyWebViewClient extends WebViewClient {
